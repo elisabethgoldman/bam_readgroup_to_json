@@ -12,7 +12,7 @@ WORKDIR /opt
 RUN pip install tox && tox -p
 
 # Remove tar.gz built from 'testenv:check_dist' step in tox.ini
-RUN rm *+dirty.tar.gz
+RUN rm ./dist/*+dirty.tar.gz
 
 FROM python:3.10
 
