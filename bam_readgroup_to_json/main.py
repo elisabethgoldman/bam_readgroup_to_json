@@ -32,7 +32,7 @@ def extract_readgroup_json(bam_path: str, logger: logging.Logger) -> None:
     bam_name, _ = os.path.splitext(bam_file)
     samfile = pysam.AlignmentFile(bam_path, 'rb', check_sq=False)
     samfile_header = samfile.header
-    readgroup_dict_list = samfile_header['RG']
+    readgroup_dict_list = samfile_header.to_dict()['RG']
     if len(readgroup_dict_list) < 1:
         logger.debug(f'There are no readgroups in BAM: {bam_name}')
         logger.debug(f'\treadgroup: {readgroup_dict_list}')
@@ -71,8 +71,8 @@ def legacy_extract_readgroup_json(bam_path: str, logger: logging.Logger) -> None
     bam_file = os.path.basename(bam_path)
     bam_name, bam_ext = os.path.splitext(bam_file)
     samfile = pysam.AlignmentFile(bam_path, 'rb', check_sq=False)
-    samfile_header = samfile.text
-    header_list = samfile_header.split('\n')
+    samfile_header = samfile.header
+    header_list = samfile_header.to_dict().keys()
     header_rg_list = [
         header_line for header_line in header_list if header_line.startswith('@RG')
     ]
