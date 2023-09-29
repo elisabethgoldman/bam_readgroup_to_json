@@ -1,10 +1,7 @@
 FROM python:3.10 as builder
 
-ENV VIRTUAL_ENV=/home/ubuntu/merge-sqlite/docker_test_env
+RUN python3
 
-RUN python3 -m venv $VIRTUAL_ENV
-
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY ./ /opt
 
 WORKDIR /opt
